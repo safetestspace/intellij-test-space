@@ -1,1 +1,1 @@
-rootProject.name = "intellij-test-space"
+rootProject.name = "jetbrains-test-space"
