@@ -1,0 +1,34 @@
+<idea-plugin>
+    <id>com.github.safetestspace.testspace</id>
+    <name>Test Space</name>
+    <vendor>SafeTestSpace</vendor>
+    <description><![CDATA[
+        <p>Make Java test method names readable without changing your source code.</p>
+        <p>Test Space displays underscores as spaces and optionally splits camelCase.
+        Method references, refactoring, and test runner names keep the original identifier.</p>
+        <ul>
+            <li>Supports JUnit 3 TestCase methods, JUnit 4, JUnit Jupiter, TestNG method annotations, and composed test annotations.</li>
+            <li>Preserves acronyms and names referenced by the test body when splitting camelCase.</li>
+            <li>Expands names for editing when the caret touches them.</li>
+            <li>Offers a custom color scheme style or standard editor folding.</li>
+        </ul>
+        <p>Configure under Settings | Editor | Test Space.</p>
+    ]]></description>
+    <change-notes><![CDATA[
+        <p>Initial release: readable Java test names, configurable formatting, custom styling,
+        and caret-aware expansion.</p>
+    ]]></change-notes>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.java</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.foldingBuilder language="JAVA"
+                             implementationClass="com.github.safetestspace.testspace.editor.JavaTestNameFoldingBuilder"/>
+        <editorFactoryListener implementation="com.github.safetestspace.testspace.editor.TestNameEditorListener"/>
+        <colorSettingsPage implementation="com.github.safetestspace.testspace.editor.TestSpaceColorSettingsPage"/>
+        <applicationConfigurable parentId="editor" id="com.github.safetestspace.testspace.settings"
+                                 bundle="messages.TestSpaceBundle" key="settings.display.name"
+                                 instance="com.github.safetestspace.testspace.ui.TestSpaceConfigurable"/>
+    </extensions>
+</idea-plugin>
