@@ -14,7 +14,7 @@ import java.util.Map;
 
 public final class TestSpaceColorSettingsPage implements ColorSettingsPage {
     private static final AttributesDescriptor[] DESCRIPTORS = {
-            new AttributesDescriptor("Test method name (custom style)", TestNameRenderer.ATTRIBUTES)
+            new AttributesDescriptor("Test name (custom style)", TestNameRenderer.ATTRIBUTES)
     };
 
     @Override
@@ -29,7 +29,7 @@ public final class TestSpaceColorSettingsPage implements ColorSettingsPage {
 
     @Override
     public @NotNull String getDemoText() {
-        return "@Test\nvoid <name>should save order</name>() {\n}\n";
+        return "<name>should save order</name>\n";
     }
 
     @Override

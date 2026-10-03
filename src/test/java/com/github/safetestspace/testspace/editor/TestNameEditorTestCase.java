@@ -14,6 +14,7 @@ public abstract class TestNameEditorTestCase extends LightJavaCodeInsightFixture
 
     @Override
     protected void setUp() throws Exception {
+        com.github.safetestspace.testspace.rust.RustTestEnvironment.prepare();
         super.setUp();
         previousSettings = TestSpaceSettings.getInstance().getState();
         TestSpaceSettings.getInstance().loadState(new TestSpaceSettings.Options(true, true, false, false));
@@ -58,7 +59,7 @@ public abstract class TestNameEditorTestCase extends LightJavaCodeInsightFixture
     }
 
     protected final FoldingDescriptor[] descriptors() {
-        return new JavaTestNameFoldingBuilder().buildFoldRegions(
+        return new TestNameFoldingBuilder().buildFoldRegions(
                 myFixture.getFile(), myFixture.getEditor().getDocument(), false);
     }
 }

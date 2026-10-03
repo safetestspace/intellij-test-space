@@ -1,4 +1,4 @@
-package com.github.safetestspace.testspace.discovery;
+package com.github.safetestspace.testspace.java;
 
 import com.intellij.psi.PsiAnnotation;
 import com.intellij.psi.PsiClass;

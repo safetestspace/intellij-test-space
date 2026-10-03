@@ -83,7 +83,7 @@ public class TestSpaceSettingsRefreshTest extends TestNameEditorTestCase {
     }
 
     public void testDisablingRemovesExistingNameFold() {
-        checkbox("Show readable test method names").doClick();
+        checkbox("Show readable test names").doClick();
 
         applySettings();
 
@@ -115,7 +115,7 @@ public class TestSpaceSettingsRefreshTest extends TestNameEditorTestCase {
     }
 
     public void testReenablingCreatesCollapsedNameWithoutSourceEdit() {
-        JBCheckBox enabled = checkbox("Show readable test method names");
+        JBCheckBox enabled = checkbox("Show readable test names");
         enabled.doClick();
         applySettings();
         assertNull(findFold("should saveOrder"));

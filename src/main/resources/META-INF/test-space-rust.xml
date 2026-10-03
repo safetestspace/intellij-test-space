@@ -1,0 +1,9 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.github.safetestspace.testspace">
+        <testNameProvider implementation="com.github.safetestspace.testspace.rust.RustTestNameProvider"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.foldingBuilder language="Rust"
+                             implementationClass="com.github.safetestspace.testspace.editor.TestNameFoldingBuilder"/>
+    </extensions>
+</idea-plugin>

@@ -1,5 +1,7 @@
 package com.github.safetestspace.testspace.editor;
 
+import com.github.safetestspace.testspace.discovery.TestNameFinder;
+
 import com.intellij.codeInsight.folding.CodeFoldingManager;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.openapi.application.ModalityState;
@@ -10,7 +12,6 @@ import com.intellij.openapi.editor.FoldRegion;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiJavaFile;
 import com.intellij.util.concurrency.AppExecutorUtil;
 
 import java.util.Objects;
@@ -33,11 +34,11 @@ public final class TestSpaceFoldingRefresh {
             manager.scheduleAsyncFoldingUpdate(editor);
             ReadAction.nonBlocking(() -> {
                         PsiFile file = PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument());
-                        if (!(file instanceof PsiJavaFile)) {
+                        if (file == null || !TestNameFinder.supports(file.getFileType())) {
                             return null;
                         }
                         Runnable update = manager.updateFoldRegionsAsync(editor, false);
-                        FoldingDescriptor[] names = new JavaTestNameFoldingBuilder()
+                        FoldingDescriptor[] names = new TestNameFoldingBuilder()
                                 .buildFoldRegions(file, editor.getDocument(), false);
                         return new Refresh(update, names);
                     }).inSmartMode(project)

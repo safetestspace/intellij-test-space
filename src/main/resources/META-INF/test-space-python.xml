@@ -1,0 +1,9 @@
+<idea-plugin>
+    <extensions defaultExtensionNs="com.github.safetestspace.testspace">
+        <testNameProvider implementation="com.github.safetestspace.testspace.python.PythonTestNameProvider"/>
+    </extensions>
+    <extensions defaultExtensionNs="com.intellij">
+        <lang.foldingBuilder language="Python"
+                             implementationClass="com.github.safetestspace.testspace.editor.TestNameFoldingBuilder"/>
+    </extensions>
+</idea-plugin>

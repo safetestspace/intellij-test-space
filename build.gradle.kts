@@ -1,3 +1,4 @@
+import org.jetbrains.intellij.platform.gradle.IntelliJPlatformType
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
@@ -21,9 +22,11 @@ dependencies {
         if (idePath.isPresent) {
             local(idePath.get())
         } else {
-            intellijIdeaCommunity(providers.gradleProperty("platformVersion"))
+            intellijIdeaUltimate(providers.gradleProperty("platformVersion"))
         }
         bundledPlugin("com.intellij.java")
+        plugin("PythonCore:243.21565.193")
+        plugin("com.jetbrains.rust:243.21565.245")
         testFramework(TestFrameworkType.Platform)
         testFramework(TestFrameworkType.Plugin.Java)
     }
@@ -52,8 +55,11 @@ intellijPlatform {
     pluginVerification {
         ides {
             current()
-            providers.gradleProperty("verificationIdePath").orNull?.let {
-                local(file(it))
+            create(IntelliJPlatformType.PyCharmProfessional, providers.gradleProperty("platformVersion"))
+            create(IntelliJPlatformType.RustRover, providers.gradleProperty("platformVersion"))
+            providers.gradleProperty("verificationIdePaths")
+                .orElse(providers.gradleProperty("verificationIdePath")).orNull?.split(',')?.forEach {
+                    local(file(it.trim()))
             }
         }
     }
@@ -66,7 +72,10 @@ tasks.test {
     maxHeapSize = "2g"
     systemProperty("java.awt.headless", "true")
     // Load only this plugin and its dependencies, including when testing against a local Ultimate IDE.
-    systemProperty("idea.load.plugins.id", "com.github.safetestspace.testspace,com.intellij.java")
+    systemProperty(
+        "idea.load.plugins.id",
+        "com.github.safetestspace.testspace,com.intellij.java,PythonCore,com.jetbrains.rust"
+    )
 }
 
 tasks.wrapper {

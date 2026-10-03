@@ -3,11 +3,12 @@
     <name>Test Space</name>
     <vendor>SafeTestSpace</vendor>
     <description><![CDATA[
-        <p>Make Java test method names readable without changing your source code.</p>
+        <p>Make Java, Python, and Rust test names readable without changing your source code.</p>
         <p>Test Space displays underscores as spaces and optionally splits camelCase.
         Method references, refactoring, and test runner names keep the original identifier.</p>
         <ul>
             <li>Supports JUnit 3 TestCase methods, JUnit 4, JUnit Jupiter, TestNG method annotations, and composed test annotations.</li>
+            <li>Supports standard pytest/unittest discovery and Rust test attributes.</li>
             <li>Preserves acronyms and names referenced by the test body when splitting camelCase.</li>
             <li>Expands names for editing when the caret touches them.</li>
             <li>Offers a custom color scheme style or standard editor folding.</li>
@@ -20,11 +21,17 @@
     ]]></change-notes>
 
     <depends>com.intellij.modules.platform</depends>
-    <depends>com.intellij.java</depends>
+    <depends optional="true" config-file="test-space-java.xml">com.intellij.java</depends>
+    <depends optional="true" config-file="test-space-python.xml">com.intellij.modules.python</depends>
+    <depends optional="true" config-file="test-space-rust.xml">com.jetbrains.rust</depends>
+
+    <extensionPoints>
+        <extensionPoint name="testNameProvider"
+                        interface="com.github.safetestspace.testspace.discovery.TestNameProvider"
+                        dynamic="true"/>
+    </extensionPoints>
 
     <extensions defaultExtensionNs="com.intellij">
-        <lang.foldingBuilder language="JAVA"
-                             implementationClass="com.github.safetestspace.testspace.editor.JavaTestNameFoldingBuilder"/>
         <editorFactoryListener implementation="com.github.safetestspace.testspace.editor.TestNameEditorListener"/>
         <colorSettingsPage implementation="com.github.safetestspace.testspace.editor.TestSpaceColorSettingsPage"/>
         <applicationConfigurable parentId="editor" id="com.github.safetestspace.testspace.settings"

@@ -17,7 +17,7 @@ import java.util.Set;
 /**
  * Plain folds only; custom styling is handled by {@link StyledTestNames}.
  */
-public final class JavaTestNameFoldingBuilder extends FoldingBuilderEx {
+public final class TestNameFoldingBuilder extends FoldingBuilderEx {
     @Override
     public FoldingDescriptor @NotNull [] buildFoldRegions(
             @NotNull PsiElement root, @NotNull Document document, boolean quick) {

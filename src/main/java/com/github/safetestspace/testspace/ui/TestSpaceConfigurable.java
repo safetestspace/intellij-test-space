@@ -42,7 +42,7 @@ public final class TestSpaceConfigurable implements SearchableConfigurable {
 
     @Override
     public @Nullable JComponent createComponent() {
-        enabled = new JBCheckBox("Show readable test method names");
+        enabled = new JBCheckBox("Show readable test names");
         underscores = new JBCheckBox("Display underscores as spaces");
         camelCase = new JBCheckBox("Split camelCase into lowercase words");
         customStyle = new JBCheckBox("Custom style");
@@ -62,8 +62,8 @@ public final class TestSpaceConfigurable implements SearchableConfigurable {
                 .addComponent(description("Set its colors under Editor | Color Scheme | Test Space. Off: names use the Folded text style."))
                 .addSeparator()
                 .addLabeledComponent("Preview:", preview)
-                .addComponent(description("Applies to test method declarations. Move the caret to a name to edit it."))
-                .addComponent(description("Source code, method usages, and test runner names are preserved."))
+                .addComponent(description("Applies to test declarations. Move the caret to a name to edit it."))
+                .addComponent(description("Source code, usages, and test runner names are preserved."))
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
         enabled.addActionListener(event -> updatePreview());

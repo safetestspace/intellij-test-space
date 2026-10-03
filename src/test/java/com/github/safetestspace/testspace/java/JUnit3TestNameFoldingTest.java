@@ -1,4 +1,6 @@
-package com.github.safetestspace.testspace.editor;
+package com.github.safetestspace.testspace.java;
+
+import com.github.safetestspace.testspace.editor.TestNameEditorTestCase;
 
 import com.github.safetestspace.testspace.settings.TestSpaceSettings;
 import com.intellij.lang.folding.FoldingDescriptor;

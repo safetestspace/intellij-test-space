@@ -3,7 +3,6 @@ package com.github.safetestspace.testspace.editor;
 import com.github.safetestspace.testspace.discovery.TestNameFinder;
 import com.github.safetestspace.testspace.settings.TestSpaceSettings;
 
-import com.intellij.ide.highlighter.JavaFileType;
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.application.ModalityState;
 import com.intellij.openapi.application.ReadAction;
@@ -23,7 +22,6 @@ import com.intellij.openapi.util.TextRange;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiJavaFile;
 import com.intellij.util.concurrency.AppExecutorUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -60,7 +58,7 @@ final class StyledTestNames implements FoldingListener, DocumentListener {
     static void attach(Editor editor, Disposable disposable) {
         Project project = editor.getProject();
         VirtualFile file = FileDocumentManager.getInstance().getFile(editor.getDocument());
-        if (project == null || file == null || !JavaFileType.INSTANCE.equals(file.getFileType())
+        if (project == null || file == null || !TestNameFinder.supports(file.getFileType())
                 || !(editor.getFoldingModel() instanceof FoldingModelEx foldingModel)) {
             return;
         }
@@ -117,7 +115,7 @@ final class StyledTestNames implements FoldingListener, DocumentListener {
     private List<Name> findNames() {
         TestSpaceSettings.Options options = TestSpaceSettings.getInstance().getState();
         PsiFile file = PsiDocumentManager.getInstance(project).getPsiFile(editor.getDocument());
-        if (!options.customStyle || !(file instanceof PsiJavaFile)) {
+        if (!options.customStyle || file == null || !TestNameFinder.supports(file.getFileType())) {
             return List.of();
         }
         return TestNameFinder.find(file, options).stream()
